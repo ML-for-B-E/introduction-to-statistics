@@ -1,47 +1,38 @@
 \documentclass[10pt]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{subcaption}
-\usetheme[secheader]{Boadilla}
-
+\usepackage{soul}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usepackage{pgfplots}
+\usetheme{Madrid}
+%\usecolortheme{seahorse}
+\colorlet{beamer@blendedblue}{red!6!green!33!blue}
 \usefonttheme[onlylarge]{structurebold}
 \setbeamerfont*{frametitle}{size=\normalsize,series=\bfseries}
 \setbeamertemplate{navigation symbols}{}
 
 
-
-%\newcommand{\grille}{  % Permet de déssiner une grille
-%\begin{tikzpicture}[overlay, remember picture]
-%\begin{scope}[shift={(current page.south west)}]
-%\draw[gray!50] (0,0) grid[step=2mm] (current page.north east);
-%\draw[red!50] (0,0) grid[step=1cm] (current page.north east);
-%\end{scope}
-%\end{tikzpicture}
-%}
- 
-%\usepackage{tikz}
-%\usetikzlibrary{arrows}
-%\tikzstyle{block}=[draw opacity=0.7,line width=1.4cm]
-
 \title{Introduction à l'apprentissage statistique}
-\subtitle{EEIA 2024}
-
 \author{Par Esp\'eran Padonou} 
+\institute[EEIA]{
+      \includegraphics[width=0.36\textwidth, height=0.14\textwidth]{
+      {figures/LOGO EEIA.png}}
+}
 
-\institute[1]{
-      \begin{minipage}{0.1\textwidth}
-       \includegraphics[width=1.6\textwidth, height=1.6\textwidth]{figures/logoFV.jpg}
-       \end{minipage}
-       \hspace{0.1\textwidth}
-             \begin{minipage}{0.1\textwidth}
-             \includegraphics[width=1.6\textwidth, height=1.6\textwidth]{figures/logoBE.png}
-       \end{minipage}
-       \hspace{0.1\textwidth}
-      \begin{minipage}{0.1\textwidth}
-       \includegraphics[width=1.6\textwidth, height=1.6\textwidth]{figures/Fondation_de_France.png}
-\end{minipage}
+\titlegraphic{
+\includegraphics[width=0.15\textwidth, height=0.15\textwidth]{{figures/logoFV.jpg}}
+\hspace{0.1\textwidth}
+\includegraphics[width=0.15\textwidth, height=0.15\textwidth]{{figures/Fondation_de_France.png}}
+\hspace{0.1\textwidth}
+   \includegraphics[width=0.15\textwidth, height=0.15\textwidth]{{figures/logoBE.png}}
+   \hspace{0.1\textwidth}
+   \includegraphics[width=0.075\textwidth, height=0.15\textwidth]{{figures/UNDP-LOGO.pdf}}
+   
 }
 
 \date[Godomey 2024]{ \\  Godomey, le 29 juillet 2024 }
+
 
 \newcommand{\Comment}[1]{
   \smallskip\par\noindent{\color{blue}$\rightarrow$ #1}
@@ -54,20 +45,6 @@
   \framebox{\parbox{#1}{
       \color{black}{#2}}}  
 }
-
-\definecolor{MonVert}{rgb}{0.398,0.801,0.000} 
-\definecolor{MonVertF}{rgb}{0.133,0.543,0.133}
-\definecolor{MonRouge}{rgb}{0.300,0.060,0.660}
-\definecolor{MonBleuC}{rgb}{0.000,0.602,0.801} 
-\definecolor{SteelBlue2}{rgb}{0.359375,0.671875,0.9296875}
-\definecolor{orange}{rgb}{0.8,0.1470,0.0}
-\definecolor{Orange}{rgb}{0.8,0.1470,0.0}
-\definecolor{SteelBlue4}{rgb}{0.212, 0.392, 0.545}
-\definecolor{SteelBlue3}{rgb}{0.30859,0.578125,0.800781}
-\definecolor{MonBleu}{rgb}{0.212, 0.392, 0.545}
-\definecolor{Violet}{rgb}{0.212, 0.392, 0.545}
-
-\newcommand{\myemph}[1]{\textbf{ \textcolor{MonBleu}{#1}}}
 
 
 \AtBeginSection{
@@ -115,13 +92,34 @@
 \begin{minipage}{0.6\textwidth}
 \begin{tabular}{|*{15}{c|}}
     \hline
-     11& 12& 11& 16& 12& 11& 10& 8&  19& 15& 11& 15& 14& 10& 11 \\ 
+     11& 12& 11& 16& 12& 11& 10& 8&  19& 15& 11& 15& 14& 10& 11 \\
+     \hline 
      12& 14& 10& 15& 12& 13& 12& 13& 13& 11& 14&  9& 16& 13& 10\\
     \hline
 \end{tabular}
 \end{minipage}
 \begin{center}
-\includegraphics[width=0.7\textwidth, height=0.3\textwidth]{figures/notes_eleves.png}
+
+\begin{tikzpicture}
+    \begin{axis}[
+    title={Représentation des notes des élèves},
+    width = \textwidth,
+    height = 4cm,
+    xmin=0, xmax=31,
+    ymin=5, ymax=20,
+    ymajorgrids=true,
+    grid style=dashed,
+    xlabel = Index,
+    ylabel = {Note}
+    ]
+    \addplot+[only marks,
+    mark=square*
+    ] coordinates {
+        (1,11) (2,12) (3,11) (4,16) (5,12) (6,11) (7,10)        (8,8) (9,19) (10,15) (11,11) (12,15) (13,14) (14,10) (15,11)        (16,12) (17,14) (18,10) (19,15) (20,12) (21,13) (22,12)        (23,13) (24,13) (25,11) (26,14)  (27,9) (28,16) (29,13) (30,10)
+    };
+    \end{axis}
+\end{tikzpicture}
+
 \begin{block}{Y a-t-il une note exceptionnelle ? }
 \begin{itemize}
 \item Comment la définissez-vous ? \pause 
